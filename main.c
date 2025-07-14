@@ -1,135 +1,96 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "arvore.h"
-#include "fila.h"
-#include "hash.h"
-#include "lista.h"
-#include "pilha.h"
+//#include "SERVICOS/arvore.h"
+//#include "FILA/fila.h"
+#include "CLIENTE/hash.h"
+//#include "AGENDAMENTO/lista.h"
+//#include "HISTORICO/pilha.h"
 
 
-void menuClientes(){
-    Hash tabelaClientes;
-    iniciaHash(tabelaClientes);
-    carregarClientes(tabelaClientes, "clientes.txt");
+void menuClientes() {
+    iniciaHash();
+    carregarClientes("clientes.txt");
     int opcao = 0;
-    char cpf[15];
-    while(opcao != 5 ){
-        printf("\n-----------MENU CLIENTES-----------\n");
-        printf("Escolha a opcao desejada:\n");
-        printf("1. Inserir Cliente\n");
+    
+    while(opcao != 5) {
+        printf("\n----------- MENU CLIENTES -----------\n");
+        printf("1. Cadastrar Cliente\n");
         printf("2. Buscar Cliente\n");
-        printf("3. Remover Cliente\n");
-        printf("4. Atualizar Cliente\n");
-        printf("5. Voltar\n");
-        printf("Sua escolha: ");
-        scanf("%d", &opcao);
-
-        switch(opcao){
-            case 1: 
-                CLIENTE cliente = lerCliente();
-                insereCliente(tabelaClientes, cliente);
-            break;
-            
-            case 2: 
-                printf("Digite o CPF para buscar: ");
-                scanf("%14s", cpf);
-                getchar();
-                CLIENTE *c = buscarCliente(tabelaClientes, cpf);
-                if (c) {
-                    printf("CPF: %s\nNome: %s\nTelefone: %s\nEndereco: %s\n", c->cpf, c->nome, c->telefone, c->endereco);
-                } else {
-                    printf("Cliente nao encontrado!\n");
-                }
-            break;
-            
-            case 3: 
-                printf("Digite o CPF para remover: ");
-                scanf("%14s", cpf);
-                getchar();
-                removerCliente(tabelaClientes, cpf);
-                salvarClientes(tabelaClientes, "clientes.txt");
-            break;
-            
-            case 4:
-                atualizaCliente(tabelaClientes);
-                break;
-            case 5:
-                printf("\nVoltando ao MENU...\n");
-            break;
-
-            default:
-                printf("opcao invalida!\n");
-                opcao = 0;
-            break;
-        }
-    }
-}
-
-void menuAgendamento(){
-    ListaAgendamento lista;
-    inicializaLista(&lista);
-    carregarAgendamentos(&lista, "agendamentos.txt");
-    int opcao = 0;
-    AGENDAMENTO ag;
-    char cpf[15];
-
-    while(opcao != 5){
-        printf("\n-----------MENU AGENDAMENTO-----------\n");
-        printf("Escolha a opcao desejada:\n");
-        printf("1. Agendar Serviço\n");
-        printf("2. Visualizar Agendamentos\n");
-        printf("3. Cancelar Agendamento\n");
-        printf("4. Buscar Agendamento por CPF\n");
+        printf("3. Atualizar Cliente\n");
+        printf("4. Remover Cliente\n");
         printf("5. Voltar\n");
         printf("Sua escolha: ");
         scanf("%d", &opcao);
         getchar();
 
-        switch(opcao){
-            case 1:
-                printf("CPF do cliente: ");
-                scanf("%14s", ag.cpfCliente); getchar();
-                printf("Serviço: ");
-                fgets(ag.servico, sizeof(ag.servico), stdin);
-                ag.servico[strcspn(ag.servico, "\n")] = 0;
-                printf("Data (DD/MM/AAAA): ");
-                scanf("%10s", ag.data); getchar();
-                printf("Hora (HH:MM): ");
-                scanf("%5s", ag.hora); getchar();
-                ag.prox = NULL;
-                insereAgendamento(&lista, ag);
-            break;
-
+        switch(opcao) {
+            case 1: 
+                inserirCliente();
+                salvarClientes("clientes.txt");
+                break;
+            
             case 2:
-                imprimeAgendamentos(&lista);
-            break;
-
+                buscarCliente();
+                break;
+            
             case 3:
-                printf("Digite o CPF para cancelar agendamento: ");
-                scanf("%14s", cpf); getchar();
-                removeAgendamento(&lista, cpf);
-            break;
-
+                atualizarCliente();
+                salvarClientes("clientes.txt");
+                break;
+            
             case 4:
-                printf("Digite o CPF para buscar agendamento: ");
-                scanf("%14s", cpf); getchar();
-                AGENDAMENTO *a = buscaAgendamento(&lista, cpf);
-                if (a) {
-                    printf("CPF: %s | Serviço: %s | Data: %s | Hora: %s\n", a->cpfCliente, a->servico, a->data, a->hora);
-                } else {
-                    printf("Agendamento não encontrado!\n");
-                }
-            break;
+                removerCliente();
+                salvarClientes("clientes.txt");
+                break;
 
             case 5:
                 printf("\nVoltando ao MENU...\n");
-            break;
+                salvarClientes("clientes.txt");
+                break;
 
             default:
-                printf("opcao invalida!\n");
-                opcao = 0;
-            break;
+                printf("Opção inválida!\n");
+                break;
+        }
+    }
+}
+
+/*
+void menuAgendamentos() {
+    ListaAgendamentos lista;
+    inicializarLista(&lista);
+    carregarAgendamentos(&lista, "agendamentos.txt");
+    
+    int opcao = 0;
+    while(opcao != 4) {
+        printf("\n------ MENU AGENDAMENTOS ------\n");
+        printf("1. Agendar novo serviço\n");
+        printf("2. Visualizar agendamentos de cliente\n");
+        printf("3. Cancelar agendamento\n");
+        printf("4. Voltar\n");
+        printf("Escolha: ");
+        scanf("%d", &opcao);
+        getchar();
+        
+        switch(opcao) {
+            case 1:
+                agendarServico(&lista);
+                salvarAgendamentos(lista, "agendamentos.txt");
+                break;
+            case 2:
+                visualizarAgendamentosCliente(lista);
+                break;
+            case 3:
+                cancelarAgendamento(&lista);
+                salvarAgendamentos(lista, "agendamentos.txt");
+                break;
+            case 4:
+                printf("Salvando e voltando ao menu principal...\n");
+                salvarAgendamentos(lista, "agendamentos.txt");
+                break;
+            default:
+                printf("Opção inválida!\n");
         }
     }
 }
@@ -308,7 +269,7 @@ void menuRelatorio() {
         }
     }
 }
-
+*/
 
 
 int main(){
@@ -324,7 +285,7 @@ int main(){
             case 1:
                 menuClientes();
             break;
-
+/*
             case 2:
                 menuAgendamento();
             break;
@@ -340,7 +301,7 @@ int main(){
             case 5:
                 menuRelatorio();
             break;
-
+*/
             case 6:
                 printf("\nOperacao encerrada!");
             break;
@@ -350,4 +311,6 @@ int main(){
             break;
         }
     }
+
+    return 0;
 }
