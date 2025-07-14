@@ -19,7 +19,6 @@ typedef struct no_avl {
 
 typedef NoAVL* ArvoreAVL;
 
-// Protótipos das funções
 ArvoreAVL* cria_arvore();
 void libera_arvore(ArvoreAVL *raiz);
 int esta_vazia(ArvoreAVL *raiz);
@@ -33,5 +32,7 @@ int insere_servico(ArvoreAVL *raiz, Servico servico);
 int remove_servico(ArvoreAVL *raiz, char *nome);
 Servico* busca_servico(ArvoreAVL *raiz, char *nome);
 void em_ordem(ArvoreAVL *raiz);
+void salvar_servicos(ArvoreAVL *raiz, FILE *arq);
+void carregar_servicos(ArvoreAVL *raiz, const char *arquivo);
 
 #endif

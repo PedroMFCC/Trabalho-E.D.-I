@@ -18,5 +18,7 @@ void insereAgendamento(ListaAgendamento *lista, AGENDAMENTO ag);
 AGENDAMENTO *buscaAgendamento(ListaAgendamento *lista, const char *cpf);
 int removeAgendamento(ListaAgendamento *lista, const char *cpf);
 void imprimeAgendamentos(ListaAgendamento *lista);
+void salvarAgendamentos(ListaAgendamento *lista, const char *arquivo);
+void carregarAgendamentos(ListaAgendamento *lista, const char *arquivo);
 
 #endif

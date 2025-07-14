@@ -1,6 +1,8 @@
 #ifndef HASH_H
 #define HASH_H
 
+#define N 127
+
 typedef struct CLIENTE {
     char cpf[15];      
     char nome[81];
@@ -8,8 +10,6 @@ typedef struct CLIENTE {
     char endereco[101];
     struct CLIENTE *prox;
 } CLIENTE;
-
-#define N 127 
 
 typedef CLIENTE *Hash[N];
 
