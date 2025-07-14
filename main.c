@@ -69,6 +69,7 @@ void menuClientes(){
 void menuAgendamento(){
     ListaAgendamento lista;
     inicializaLista(&lista);
+    carregarAgendamentos(&lista, "agendamentos.txt");
     int opcao = 0;
     AGENDAMENTO ag;
     char cpf[15];
@@ -178,9 +179,11 @@ void menuFila(){
     }
 }
 
+
 void menuHistorico(){
     Pilha historico;
     inicializaPilha(&historico);
+    carregarHistorico(&historico, "historico.txt");
     int opcao = 0;
     char cpf[15];
     char descricao[101];
@@ -224,6 +227,7 @@ void menuHistorico(){
 
 void menuRelatorio() {
     ArvoreAVL *arvore = cria_arvore();
+    carregar_servicos(arvore, "servicos.txt");
     int opcao = 0;
     char nome[MAX_SERVICO];
     Servico servico;
@@ -237,7 +241,7 @@ void menuRelatorio() {
         printf("4. Voltar\n");
         printf("Sua escolha: ");
         scanf("%d", &opcao);
-        getchar(); // Limpar buffer
+        getchar();
 
         switch(opcao) {
             case 1:
@@ -252,9 +256,9 @@ void menuRelatorio() {
                 
                 printf("Preço: R$");
                 scanf("%f", &servico.preco);
-                getchar(); // Limpar buffer
+                getchar();
                 
-                if (insere_servico(arvore, servico)) {
+                if(insere_servico(arvore, servico)) {
                     printf("Serviço adicionado com sucesso!\n");
                 } else {
                     printf("Erro ao adicionar serviço.\n");
@@ -268,7 +272,7 @@ void menuRelatorio() {
                 nome[strcspn(nome, "\n")] = '\0';
                 
                 Servico *s = busca_servico(arvore, nome);
-                if (s != NULL) {
+                if(s != NULL) {
                     printf("\nServiço encontrado:\n");
                     printf("Nome: %s\n", s->nome);
                     printf("Descrição: %s\n", s->descricao);
@@ -280,7 +284,7 @@ void menuRelatorio() {
 
             case 3:
                 printf("\n--- Lista de Serviços (Ordem Alfabética) ---\n");
-                if (esta_vazia(arvore)) {
+                if(esta_vazia(arvore)) {
                     printf("Nenhum serviço cadastrado.\n");
                 } else {
                     em_ordem(arvore);
@@ -289,6 +293,12 @@ void menuRelatorio() {
 
             case 4:
                 printf("\nVoltando ao MENU...\n");
+                // Salva serviços no arquivo antes de sair
+                FILE *arq = fopen("servicos.txt", "w");
+                if(arq != NULL) {
+                    salvar_servicos(arvore, arq);
+                    fclose(arq);
+                }
                 libera_arvore(arvore);
                 break;
 
