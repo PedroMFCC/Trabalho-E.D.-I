@@ -43,7 +43,13 @@ CLIENTE lerCliente(){
 }
 
 void insereCliente(Hash tabela, CLIENTE cliente){
-   int idx = hash(cliente.cpf);
+    FILE *arq = fopen("clientes.txt", "a");
+    if (arq == NULL) {
+        printf("Erro ao abrir o arquivo de clientes\n");
+        return;
+    }
+
+    int idx = hash(cliente.cpf);
 
     CLIENTE *atual = tabela[idx];
     while (atual) {
@@ -63,11 +69,7 @@ void insereCliente(Hash tabela, CLIENTE cliente){
     novo->prox = tabela[idx];
     tabela[idx] = novo;
 
-    FILE *arq = fopen("clientes.txt", "a");
-    if (arq == NULL) {
-        printf("Erro ao abrir o arquivo de clientes\n");
-        return;
-    }
+    
     fprintf(arq, "%s;%s;%s;%s\n", cliente.cpf, cliente.nome, cliente.telefone, cliente.endereco);
     fclose(arq);
 
@@ -114,6 +116,7 @@ void salvarClientes(Hash tabela, const char *arquivo) {
         printf("Erro ao abrir o arquivo para salvar clientes.\n");
         return;
     }
+    
     for (int i = 0; i < N; i++) {
         CLIENTE *atual = tabela[i];
         while (atual) {
