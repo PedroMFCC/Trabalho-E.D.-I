@@ -1,0 +1,6 @@
+12345678901;15/07/2023;09:00;Consulta médica geral;Agendado
+98765432109;16/07/2023;14:30;Exame de sangue;Agendado
+45678912345;17/07/2023;10:15;Consulta com especialista;Concluído
+11122233344;20/07/2023;08:00;Vacinação;Agendado
+55566677788;21/07/2023;16:45;Retorno médico;Agendado
+99988877766;22/07/2023;11:30;Fisioterapia;Cancelado

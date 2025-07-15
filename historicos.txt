@@ -1,0 +1,6 @@
+12345678901;15/07/2023;09:00;Consulta médica geral;Paciente com dores de cabeça frequentes
+98765432109;16/07/2023;14:30;Exame de sangue;Jejum de 12 horas realizado
+45678912345;17/07/2023;10:15;Consulta cardiologia;Pressão arterial 12x8
+11122233344;20/07/2023;08:00;Vacinação COVID-19;Dose de reforço aplicada
+55566677788;21/07/2023;16:45;Retorno pediatria;Criança com febre baixa
+99988877766;22/07/2023;11:30;Fisioterapia;Sessão de reabilitação pós-cirúrgica

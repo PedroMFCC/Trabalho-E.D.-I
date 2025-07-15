@@ -1,0 +1,6 @@
+Consulta médica geral;Atendimento médico básico para diagnóstico inicial;150.00;
+Exame de sangue;Coleta e análise de amostra sanguínea;80.50;
+Vacinação;Aplicação de vacinas conforme calendário;65.00;
+Ultrassom abdominal;Exame de imagem para avaliação de órgãos internos;220.00;
+Fisioterapia;Sessão de reabilitação física;90.00;
+Consulta cardiologia;Avaliação especializada do sistema cardiovascular;250.00;

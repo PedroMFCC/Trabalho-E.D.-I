@@ -1,0 +1,6 @@
+12345678901;João Silva;11987654321;Rua das Flores, 123, São Paulo;
+98765432109;Maria Oliveira;21988776655;Av. Brasil, 456, Rio de Janeiro;
+45678912345;Carlos Souza;31999887766;Rua dos Pinheiros, 789, Belo Horizonte;
+11122233344;Ana Pereira;11999998888;Av. Paulista, 1001, São Paulo;
+55566677788;Pedro Santos;21977665544;Rua do Comércio, 200, Niterói;
+99988877766;Luiza Costa;31988776655;Alameda Santos, 300, Belo Horizonte;
