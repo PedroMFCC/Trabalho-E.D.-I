@@ -142,7 +142,7 @@ void salvarClientes(const char *filename) {
     for(int i = 0; i < N; i++) {
         Cliente *atual = tabelaClientes[i];
         while(atual != NULL) {
-            fprintf(file, "%s\n%s\n%s\n%s\n", 
+            fprintf(file, "%s;%s;%s;%s;\n", 
                    atual->cpf, atual->nome, atual->telefone, atual->endereco);
             atual = atual->prox;
         }
@@ -160,10 +160,10 @@ void carregarClientes(const char *filename) {
     
     Cliente cliente;
     
-    while(fscanf(file, " %14[^\n]", cliente.cpf) == 1) {
-        fscanf(file, " %99[^\n]", cliente.nome);
-        fscanf(file, " %19[^\n]", cliente.telefone);
-        fscanf(file, " %99[^\n]", cliente.endereco);
+    while(fscanf(file, " %14[^;]", cliente.cpf) == 1) {
+        fscanf(file, " %99[^;]", cliente.nome);
+        fscanf(file, " %19[^;]", cliente.telefone);
+        fscanf(file, " %99[^;]", cliente.endereco);
         cliente.prox = NULL;
         
         int h = hashCPF(cliente.cpf);
