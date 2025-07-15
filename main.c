@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include "SERVICOS/arvore.h"
+#include "SERVICOS/arvore.h"
 #include "FILA/fila.h"
 #include "CLIENTE/hash.h"
 #include "AGENDAMENTO/lista.h"
-//#include "HISTORICO/pilha.h"
+#include "HISTORICO/pilha.h"
 
 
 void menuClientes() {
@@ -131,15 +131,10 @@ void menuFila(){
         }
     }
 }
-/*
 
 void menuHistorico(){
-    Pilha historico;
-    inicializaPilha(&historico);
-    carregarHistorico(&historico, "historico.txt");
     int opcao = 0;
-    char cpf[15];
-    char descricao[101];
+
     while(opcao != 3){
         printf("\n-----------MENU HISTÓRICO DE ATENDIMENTOS-----------\n");
         printf("Escolha a opcao desejada:\n");
@@ -152,18 +147,11 @@ void menuHistorico(){
 
         switch(opcao){
             case 1:
-                printf("Digite o CPF do cliente: ");
-                scanf("%14s", cpf); getchar();
-                printf("Descrição do atendimento: ");
-                fgets(descricao, sizeof(descricao), stdin);
-                descricao[strcspn(descricao, "\n")] = 0;
-                empilha(&historico, cpf, descricao);
+                registrarAtendimento();
             break;
 
             case 2:
-                printf("Digite o CPF para consultar histórico: ");
-                scanf("%14s", cpf); getchar();
-                imprimeHistorico(&historico, cpf);
+                visualizarHistorico();
             break;
 
             case 3:
@@ -179,11 +167,8 @@ void menuHistorico(){
 }
 
 void menuRelatorio() {
-    ArvoreAVL *arvore = cria_arvore();
-    carregar_servicos(arvore, "servicos.txt");
     int opcao = 0;
-    char nome[MAX_SERVICO];
-    Servico servico;
+    carregarServicos();
     
     while(opcao != 4) {
         printf("\n-----------MENU RELATÓRIO DE SERVIÇOS-----------\n");
@@ -198,61 +183,20 @@ void menuRelatorio() {
 
         switch(opcao) {
             case 1:
-                printf("\n--- Adicionar Serviço ---\n");
-                printf("Nome do serviço: ");
-                fgets(servico.nome, MAX_SERVICO, stdin);
-                servico.nome[strcspn(servico.nome, "\n")] = '\0';
-                
-                printf("Descrição: ");
-                fgets(servico.descricao, MAX_DESCRICAO, stdin);
-                servico.descricao[strcspn(servico.descricao, "\n")] = '\0';
-                
-                printf("Preço: R$");
-                scanf("%f", &servico.preco);
-                getchar();
-                
-                if(insere_servico(arvore, servico)) {
-                    printf("Serviço adicionado com sucesso!\n");
-                } else {
-                    printf("Erro ao adicionar serviço.\n");
-                }
+                adicionarServico();
                 break;
 
             case 2:
-                printf("\n--- Buscar Serviço ---\n");
-                printf("Nome do serviço: ");
-                fgets(nome, MAX_SERVICO, stdin);
-                nome[strcspn(nome, "\n")] = '\0';
-                
-                Servico *s = busca_servico(arvore, nome);
-                if(s != NULL) {
-                    printf("\nServiço encontrado:\n");
-                    printf("Nome: %s\n", s->nome);
-                    printf("Descrição: %s\n", s->descricao);
-                    printf("Preço: R$%.2f\n", s->preco);
-                } else {
-                    printf("Serviço não encontrado.\n");
-                }
+                buscarServico();
                 break;
 
             case 3:
-                printf("\n--- Lista de Serviços (Ordem Alfabética) ---\n");
-                if(esta_vazia(arvore)) {
-                    printf("Nenhum serviço cadastrado.\n");
-                } else {
-                    em_ordem(arvore);
-                }
+                listarServicosOrdem();
                 break;
 
             case 4:
-                printf("\nVoltando ao MENU...\n");
-                // Salva serviços no arquivo antes de sair
-                FILE *arq = fopen("servicos.txt", "w");
-                if(arq != NULL) {
-                    salvar_servicos(arvore, arq);
-                    fclose(arq);
-                }
-                libera_arvore(arvore);
+                printf("voltando ao MENU...");
+                salvarServicos();
                 break;
 
             default:
@@ -261,7 +205,7 @@ void menuRelatorio() {
         }
     }
 }
-*/
+
 
 
 int main(){
@@ -285,7 +229,7 @@ int main(){
             case 3:
                 menuFila();
             break;
-/*
+
             case 4:
                 menuHistorico();
             break;
@@ -293,7 +237,7 @@ int main(){
             case 5:
                 menuRelatorio();
             break;
-*/
+
             case 6:
                 printf("\nOperacao encerrada!");
             break;
