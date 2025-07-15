@@ -4,7 +4,7 @@
 //#include "SERVICOS/arvore.h"
 //#include "FILA/fila.h"
 #include "CLIENTE/hash.h"
-//#include "AGENDAMENTO/lista.h"
+#include "AGENDAMENTO/lista.h"
 //#include "HISTORICO/pilha.h"
 
 
@@ -56,45 +56,42 @@ void menuClientes() {
     }
 }
 
-/*
 void menuAgendamentos() {
-    ListaAgendamentos lista;
-    inicializarLista(&lista);
-    carregarAgendamentos(&lista, "agendamentos.txt");
-    
+    carregarAgendamentos();
     int opcao = 0;
-    while(opcao != 4) {
+    while(opcao != 5) {
         printf("\n------ MENU AGENDAMENTOS ------\n");
         printf("1. Agendar novo serviço\n");
         printf("2. Visualizar agendamentos de cliente\n");
         printf("3. Cancelar agendamento\n");
-        printf("4. Voltar\n");
+        printf("4. Atualizar status\n");
+        printf("5. Voltar\n");
         printf("Escolha: ");
         scanf("%d", &opcao);
         getchar();
         
         switch(opcao) {
             case 1:
-                agendarServico(&lista);
-                salvarAgendamentos(lista, "agendamentos.txt");
+                criarAgendamento();
                 break;
             case 2:
-                visualizarAgendamentosCliente(lista);
+                visualizarAgendamentos();
                 break;
             case 3:
-                cancelarAgendamento(&lista);
-                salvarAgendamentos(lista, "agendamentos.txt");
+                cancelarAgendamento();
                 break;
             case 4:
-                printf("Salvando e voltando ao menu principal...\n");
-                salvarAgendamentos(lista, "agendamentos.txt");
+                atualizarStatus();
+                break;
+            case 5:
+                printf("Voltando ao menu principal...\n");
                 break;
             default:
                 printf("Opção inválida!\n");
         }
     }
 }
-
+/*
 void menuFila(){
     Fila fila;
     inicializaFila(&fila);
@@ -285,11 +282,11 @@ int main(){
             case 1:
                 menuClientes();
             break;
-/*
-            case 2:
-                menuAgendamento();
-            break;
 
+            case 2:
+                menuAgendamentos();
+            break;
+/*
             case 3:
                 menuFila();
             break;
