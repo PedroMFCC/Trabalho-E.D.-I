@@ -160,7 +160,7 @@ void listarServicosOrdem() {
 void salvarServicosEmOrdem(FILE* arquivo, NoServico* no) {
     if (no != NULL) {
         salvarServicosEmOrdem(arquivo, no->esq);
-        fprintf(arquivo, "%s\n%s\n%.2f\n", no->servico.tipo, no->servico.descricao, no->servico.preco);
+        fprintf(arquivo, "%s;%s;%.2f;", no->servico.tipo, no->servico.descricao, no->servico.preco);
         salvarServicosEmOrdem(arquivo, no->dir);
     }
 }
@@ -187,11 +187,11 @@ void carregarServicos() {
     char linha[150];
     
     while (fgets(linha, sizeof(linha), arquivo) != NULL) {
-        linha[strcspn(linha, "\n")] = 0;
+        linha[strcspn(linha, ";")] = 0;
         strcpy(servico.tipo, linha);
         
         if (fgets(linha, sizeof(linha), arquivo) == NULL) break;
-        linha[strcspn(linha, "\n")] = 0;
+        linha[strcspn(linha, ";")] = 0;
         strcpy(servico.descricao, linha);
         
         if (fgets(linha, sizeof(linha), arquivo) == NULL) break;
