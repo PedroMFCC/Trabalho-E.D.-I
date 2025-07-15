@@ -3,7 +3,7 @@
 
 #define N 127
 
-typedef struct{
+typedef struct Cliente{
     char cpf[15];
     char nome[100];
     char telefone[20];
