@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 //#include "SERVICOS/arvore.h"
-//#include "FILA/fila.h"
+#include "FILA/fila.h"
 #include "CLIENTE/hash.h"
 #include "AGENDAMENTO/lista.h"
 //#include "HISTORICO/pilha.h"
@@ -91,12 +91,11 @@ void menuAgendamentos() {
         }
     }
 }
-/*
+
 void menuFila(){
-    Fila fila;
-    inicializaFila(&fila);
+    carregarFila();
+
     int opcao = 0;
-    char cpf[15];
     while(opcao != 4){
         printf("\n-----------MENU FILA DE ATENDIMENTO-----------\n");
         printf("Escolha a opcao desejada:\n");
@@ -110,19 +109,15 @@ void menuFila(){
 
         switch(opcao){
             case 1:
-                printf("Digite o CPF do cliente para adicionar à fila: ");
-                scanf("%14s", cpf); getchar();
-                enfileira(&fila, cpf);
+                entrarNaFila();
             break;
 
             case 2:
-                if (desenfileira(&fila, cpf)) {
-                    printf("Próximo atendimento: CPF %s\n", cpf);
-                }
+                proxAtendimento();
             break;
 
             case 3:
-                imprimeFila(&fila);
+                visualizarFila();
             break;
 
             case 4:
@@ -136,7 +131,7 @@ void menuFila(){
         }
     }
 }
-
+/*
 
 void menuHistorico(){
     Pilha historico;
@@ -286,11 +281,11 @@ int main(){
             case 2:
                 menuAgendamentos();
             break;
-/*
+
             case 3:
                 menuFila();
             break;
-
+/*
             case 4:
                 menuHistorico();
             break;
